@@ -1,8 +1,22 @@
-import { registerRootComponent } from 'expo';
+// Must be first for Expo Go gesture handler
+import 'react-native-gesture-handler';
 
-import App from './App';
+// Essential polyfills
+import 'react-native-get-random-values';
+import 'react-native-url-polyfill/auto';
 
-// registerRootComponent calls AppRegistry.registerComponent('main', () => App);
-// It also ensures that whether you load the app in Expo Go or in a native build,
-// the environment is set up appropriately
-registerRootComponent(App);
+// Set up Buffer if needed
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+if (typeof (global as any).Buffer === 'undefined') {
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    ;(global as any).Buffer = require('buffer').Buffer
+  } catch (e) {
+    console.warn('Failed to load Buffer:', e)
+  }
+}
+
+import { registerRootComponent } from 'expo'
+import App from './App'
+
+registerRootComponent(App)
