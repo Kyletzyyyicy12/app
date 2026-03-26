@@ -1,6 +1,6 @@
 // src/config/firebaseConfig.ts
 import { initializeApp, getApps, getApp } from "firebase/app"
-import { getAuth, Auth, initializeAuth, onAuthStateChanged } from "firebase/auth"
+import { getAuth, Auth, initializeAuth, onAuthStateChanged, browserSessionPersistence, browserLocalPersistence, setPersistence } from "firebase/auth"
 import { getFirestore, Firestore, setLogLevel, enableNetwork, collection, addDoc, serverTimestamp, doc, updateDoc as firebaseUpdateDoc, setDoc as firebaseSetDoc } from "firebase/firestore"
 import { getStorage, FirebaseStorage } from "firebase/storage"
 import { getFunctions, Functions } from "firebase/functions"
@@ -78,8 +78,13 @@ try {
     });
     console.log('[Firebase] Auth initialized with AsyncStorage persistence for React Native');
   } else {
+    // Web platform - use browser-based persistence
     auth = getAuth(app);
-    console.log('[Firebase] Auth initialized for web platform');
+    // Set browser local persistence for web (maintains login across browser sessions)
+    setPersistence(auth, browserLocalPersistence).catch((error) => {
+      console.warn('[Firebase] Failed to set browser persistence:', error);
+    });
+    console.log('[Firebase] Auth initialized for web platform with browser persistence');
   }
 } catch (error) {
   console.warn('[Firebase] initializeAuth failed, using getAuth fallback:', error);
