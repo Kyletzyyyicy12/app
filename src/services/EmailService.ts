@@ -321,3 +321,4 @@ export const emailAPI = {
   setFunctionsRegion: (region: string) =>
     emailService.setFunctionsRegion(region),
 };
+
