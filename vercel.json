@@ -1,15 +1,12 @@
 {
   "version": 2,
-  "builds": [
+  "buildCommand": "npm run vercel-build",
+  "outputDirectory": "dist",
+  "public": false,
+  "rewrites": [
     {
-      "src": "api/send-email.js",
-      "use": "@vercel/node"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/api/send-email",
-      "dest": "api/send-email.js"
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ]
 }
