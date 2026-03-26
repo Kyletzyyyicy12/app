@@ -22,7 +22,7 @@ export interface EmailServiceResponse {
 
 class EmailService {
   // EmailJS Configuration - React Native Compatible
-  private emailJSServiceId = 'service_wz3egov'; // Your EmailJS service ID (updated to working service)
+  private emailJSServiceId = 'service_6k07xgq'; // Your EmailJS service ID
   private emailJSSignupTemplateId = 'template_c11tof8'; // Signup verification template
   private emailJSResetTemplateId = 'template_xjvif47'; // Password reset template
   private emailJSUserId = '3X2r_ElBQN5akemNJ'; // Your EmailJS public key
