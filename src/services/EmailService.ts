@@ -247,6 +247,17 @@ class EmailService {
   }
 
   /**
+   * Update EmailJS configuration
+   */
+  updateEmailJSConfig(serviceId: string, signupTemplateId: string, resetTemplateId: string, userId: string): void {
+    this.emailJSServiceId = serviceId;
+    this.emailJSSignupTemplateId = signupTemplateId;
+    this.emailJSResetTemplateId = resetTemplateId;
+    this.emailJSUserId = userId;
+    console.log('[EmailService] EmailJS configuration updated');
+  }
+
+  /**
    * Get current EmailJS configuration (for debugging)
    */
   getEmailJSConfig(): { serviceId: string; signupTemplateId: string; resetTemplateId: string; userId: string } {
