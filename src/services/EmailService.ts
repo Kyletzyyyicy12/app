@@ -27,6 +27,10 @@ class EmailService {
   private emailJSResetTemplateId = 'template_xjvif47'; // Password reset template
   private emailJSUserId = '3X2r_ElBQN5akemNJ'; // Your EmailJS public key
 
+  // Alternative: Use a simple email service that doesn't require OAuth
+  private useAlternativeService = true; // Set to true to use alternative service
+  private alternativeServiceUrl = 'https://api.emailjs.com/api/v1.0/email/send'; // Keep EmailJS for now
+
   constructor() {
     console.log('[EmailService] EmailJS service initialized - React Native compatible!');
     console.log('[EmailService] Service ID:', this.emailJSServiceId);
@@ -62,8 +66,8 @@ class EmailService {
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
-          'Origin': 'https://your-app-domain.com', // Replace with your app's domain
-          'Referer': 'https://your-app-domain.com', // Replace with your app's domain
+          'Origin': 'https://moblieappcobypicks.vercel.app', // Your actual Vercel domain
+          'Referer': 'https://moblieappcobypicks.vercel.app', // Your actual Vercel domain
         },
         body: JSON.stringify({
           service_id: this.emailJSServiceId,
@@ -149,8 +153,8 @@ class EmailService {
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
-          'Origin': 'https://your-app-domain.com', // Replace with your app's domain
-          'Referer': 'https://your-app-domain.com', // Replace with your app's domain
+          'Origin': 'https://moblieappcobypicks.vercel.app', // Your actual Vercel domain
+          'Referer': 'https://moblieappcobypicks.vercel.app', // Your actual Vercel domain
         },
         body: JSON.stringify({
           service_id: this.emailJSServiceId,
@@ -233,14 +237,13 @@ class EmailService {
   }
 
   /**
-   * Update EmailJS configuration
+   * Switch to alternative email service (Outlook, Yahoo, or custom SMTP)
+   * This avoids Gmail OAuth issues
    */
-  updateEmailJSConfig(serviceId: string, signupTemplateId: string, resetTemplateId: string, userId: string): void {
+  switchToAlternativeService(serviceId: string, userId: string): void {
     this.emailJSServiceId = serviceId;
-    this.emailJSSignupTemplateId = signupTemplateId;
-    this.emailJSResetTemplateId = resetTemplateId;
     this.emailJSUserId = userId;
-    console.log('[EmailService] EmailJS configuration updated');
+    console.log('[EmailService] Switched to alternative email service:', serviceId);
   }
 
   /**
@@ -302,6 +305,12 @@ export const emailAPI = {
    */
   updateEmailJSConfig: (serviceId: string, signupTemplateId: string, resetTemplateId: string, userId: string) =>
     emailService.updateEmailJSConfig(serviceId, signupTemplateId, resetTemplateId, userId),
+
+  /**
+   * Switch to alternative email service
+   */
+  switchToAlternativeService: (serviceId: string, userId: string) =>
+    emailService.switchToAlternativeService(serviceId, userId),
 
   /**
    * Get EmailJS configuration
